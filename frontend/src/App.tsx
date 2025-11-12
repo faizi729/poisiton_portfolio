@@ -1,31 +1,36 @@
- 
- 
-import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import TradeForm from './pages/trade'
-import Positions from './pages/position'
-import PnLPage from './pages/pnl'
-import LoginPage from './pages/login'
-import RegisterPage from './pages/register'
+import "./App.css";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import TradeForm from "./pages/trade";
+import Positions from "./pages/position";
+import PnLPage from "./pages/pnl";
+import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
 
 function App() {
-  
+  const userId = localStorage.getItem("userId");
 
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
-      <Route path="/" element ={<LoginPage />}/>
-      <Route path="/position" element ={<Positions />}/>
-      <Route path="/pnl" element ={<PnLPage />}/>
-      <Route path="/register" element ={<RegisterPage />} />
-      <Route path="/trade" element ={<TradeForm />} />
+        {/* ✅ Protect these routes */}
+        <Route
+          path="/trade"
+          element={userId ? <TradeForm /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/position"
+          element={userId ? <Positions /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/pnl"
+          element={userId ? <PnLPage /> : <Navigate to="/" replace />}
+        />
       </Routes>
-
-      </BrowserRouter>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

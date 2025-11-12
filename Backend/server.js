@@ -11,6 +11,7 @@ import { startTradeConsumer } from "./kafka/consumers/trade.consumer.js";
 import { tradeController } from "./controllers/trade.controller.js";
 import {  getPositionsController } from "./controllers/lot.controller.js";
 import { getRealizedPnL } from "./controllers/realize.controller.js";
+import router from "./routes/route.js";
 
 dotenv.config();
 
@@ -22,12 +23,8 @@ app.use(cors());
 app.use(morgan("dev"));
 
 // Routes
-app.post("/api/register", register);
-app.post("/api/login",login)
-app.post("/api/trades",tradeController)
-app.get("/api/positions", getPositionsController);
-app.get("/api/realized-pnl", getRealizedPnL);
 
+app.use("/api",router)
 // Database Connection & Server Start
 const startServer = async () => {
   try {
