@@ -9,6 +9,7 @@ export const tradeProducer = kafka.producer();
 export const tradeConsumer = kafka.consumer({ groupId: "trade-group" });
 
 export const connectKafka = async () => {
+  console.log("Kafka Broker:", process.env.KAFKA_BROKER);
   try {
     await tradeProducer.connect();
     await tradeConsumer.connect();
