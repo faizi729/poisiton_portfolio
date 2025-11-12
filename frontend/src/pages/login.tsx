@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
  
@@ -16,18 +16,22 @@ const navigate = useNavigate()
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(`${backend_url}/api/login`, form);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userId", res.data.user.id);
-      alert("✅ Login successful!");
-      navigate("/trade");
-    } catch (err: any) {
+ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post(`${backend_url}/api/login`, form);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userId", res.data.user.id);
+    alert("✅ Login successful!");
+    navigate("/trade");
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
       alert("❌ Login failed: " + err.response?.data?.message);
+    } else {
+      alert("❌ Login failed due to an unexpected error.");
     }
-  };
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
