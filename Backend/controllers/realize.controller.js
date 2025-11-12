@@ -1,5 +1,5 @@
 import {realizeTable} from "../models/realize.model.js";
-import {TradeTable} from "../models/trade.model.js";
+import {TradeTable} from "../models/Trade.model.js";
 import {LotTable} from "../models/Lot.model.js";
 import {Sequelize} from "sequelize";
 import logger from "../config/winston.js"
