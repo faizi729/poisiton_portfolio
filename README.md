@@ -1,4 +1,4 @@
-Here’s a complete, professional **README.md** you can directly use for your GitHub repo — it’s tailored exactly to your **Portfolio Tracker (Lot-wise FIFO Trading System)** built with **Node.js, PostgreSQL, Sequelize, Kafka, and React/Vite frontend** 👇
+
 
 ---
 
@@ -283,9 +283,3 @@ portfolio_tracker/
 
 ## 📜 License
 
-This project is for educational and technical evaluation purposes only.
-© 2025 [Your Name]
-
----
-
-Would you like me to also generate a **README badge section** (Node, PostgreSQL, React, etc.) at the top — like those professional GitHub READMEs with icons?

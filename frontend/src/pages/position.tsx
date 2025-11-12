@@ -13,6 +13,7 @@ interface Position {
 const Positions: React.FC = () => {
   const [positions, setPositions] = useState<Position[]>([]);
     const [userId, setUserId] = useState<string | null>(null);
+      const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const storedId = localStorage.getItem("userId");
@@ -27,12 +28,12 @@ const Positions: React.FC = () => {
     if (!userId) return;
 
     axios
-      .get("http://localhost:5000/api/positions", {
+      .get(`${backend_url}/api/positions`, {
         params: { userId }, // 👈 passes userId as query param
       })
       .then((res) => setPositions(res.data))
       .catch((err) => console.error(err));
-  }, [userId]);
+  }, [userId,backend_url]);
 
   console.log("Fetched Positions:", positions);
 

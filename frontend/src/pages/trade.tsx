@@ -1,4 +1,5 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect  } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar"; // adjust path if needed
 
@@ -21,6 +22,7 @@ const TradeForm: React.FC = () => {
     tradeDate: "",
     userId: null,
   });
+    const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   // ✅ get userId safely (after browser loads)
   useEffect(() => {
@@ -37,32 +39,37 @@ const TradeForm: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (!userId) {
-      alert("⚠️ You must log in first!");
-      return;
-    }
+  if (!userId) {
+    alert("⚠️ You must log in first!");
+    return;
+  }
 
-    try {
-      console.log("Trade Data:", form);
+  try {
+    console.log("Trade Data:", form);
+    await axios.post(`${backend_url}/api/trades`, form);
+    alert("✅ Trade submitted successfully!");
 
-      await axios.post("http://localhost:5000/api/trades", form);
-
-      alert("✅ Trade submitted successfully!");
-      setForm({
-        symbol: "",
-        quantity: "",
-        price: "",
-        tradeType: "BUY",
-        tradeDate: "",
-        userId,
-      });
-    } catch (err: any) {
+    setForm({
+      symbol: "",
+      quantity: "",
+      price: "",
+      tradeType: "BUY",
+      tradeDate: "",
+      userId,
+    });
+  } catch (err: unknown) {
+    // ✅ Safe way to check for Axios errors
+    if (axios.isAxiosError(err)) {
       alert("❌ Error submitting trade: " + err.response?.data?.message);
+    } else {
+      console.error("Unexpected Error:", err);
+      alert("❌ Something went wrong. Please try again later.");
     }
-  };
+  }
+};
 
   return (
     <>

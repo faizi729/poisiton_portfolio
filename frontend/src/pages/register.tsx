@@ -12,20 +12,24 @@ export default function RegisterPage() {
     password: "",
   });
 const navigate = useNavigate()
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/api/register", form);
-      alert("✅ Registration successful! Please log in.");
-      
-    } catch (err: any) {
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  try {
+    await axios.post(`${backend_url}/api/register`, form);
+    alert("✅ Registration successful! Please log in.");
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
       alert("❌ Registration failed: " + err.response?.data?.message);
+    } else {
+      alert("❌ An unexpected error occurred.");
     }
-  };
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
