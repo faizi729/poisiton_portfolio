@@ -240,6 +240,7 @@ portfolio_tracker/
 │   ├── routes/
 │   ├── kafka/
 │   └── server.js
+|   |__docker-compose.yml
 │
 ├── frontend/
 │   ├── src/
@@ -268,5 +269,5 @@ portfolio_tracker/
 
 ---
 
-## 📜 License
+
 
