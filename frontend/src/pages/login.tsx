@@ -24,7 +24,7 @@ const navigate = useNavigate()
     const res = await axios.post(`${backend_url}/api/login`, form);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("userId", res.data.user.id);
-    alert("✅ Login successful!");
+    
     navigate("/trade");
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {

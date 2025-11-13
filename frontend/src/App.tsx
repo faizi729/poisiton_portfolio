@@ -29,15 +29,15 @@ function App() {
         {/* ✅ Protect these routes */}
         <Route
           path="/trade"
-          element={userId ? <TradeForm /> : <Navigate to="/" replace />}
+          element={  <TradeForm />   }
         />
         <Route
           path="/position"
-          element={userId ? <Positions /> : <Navigate to="/" replace />}
+          element={  <Positions />  }
         />
         <Route
           path="/pnl"
-          element={userId ? <PnLPage /> : <Navigate to="/" replace />}
+          element={  <PnLPage />  }
         />
       </Routes>
     </BrowserRouter>
