@@ -32,9 +32,11 @@ const startServer = async () => {
     await sequelize.sync({ alter: true });
     console.log("✅ All tables created & associated successfully.");
 
-    // Connect Kafka separately
-    await connectKafka();
-    await startTradeConsumer();
+   if(process.env.NODE_ENV !== "production"){
+
+     await connectKafka();
+     await startTradeConsumer();
+    }
 
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
