@@ -5,9 +5,20 @@ import Positions from "./pages/position";
 import PnLPage from "./pages/pnl";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
+import { useEffect, useState } from "react";
 
 function App() {
-  const userId = localStorage.getItem("userId");
+   const [userId, setUserId] = useState(localStorage.getItem("userId"));
+
+  // ✅ Listen for login/logout changes in localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUserId(localStorage.getItem("userId"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <BrowserRouter>
