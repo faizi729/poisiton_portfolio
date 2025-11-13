@@ -51,7 +51,10 @@ export const tradeController = async (req, res) => {
       );
 
       await transaction.commit();
-      await publishTradeToKafka(trade);
+      if(process.env.NODE_ENV === "production"){
+
+        await publishTradeToKafka(trade);
+      }
 
       logger.info(`✅ BUY Trade created and lot opened for ${symbol}`);
       return res.status(201).json({
@@ -117,7 +120,10 @@ export const tradeController = async (req, res) => {
       }
 
       await transaction.commit();
-      await publishTradeToKafka(trade);
+      if(process.env.NODE_ENV === "production"){
+
+        await publishTradeToKafka(trade);
+      }
 
       logger.info(
         `💰 SELL Trade executed for ${symbol}, Profit: ${totalProfit.toFixed(2)}`
