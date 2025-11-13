@@ -32,6 +32,7 @@ const TradeForm: React.FC = () => {
       setForm((prev) => ({ ...prev, userId: storedId }));
     }
   }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -41,6 +42,7 @@ const TradeForm: React.FC = () => {
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setIsLoading(true);
 
   if (!userId) {
     alert("⚠️ You must log in first!");
@@ -69,6 +71,7 @@ const TradeForm: React.FC = () => {
       alert("❌ Something went wrong. Please try again later.");
     }
   }
+  setIsLoading(false);
 };
 
   return (
@@ -121,9 +124,14 @@ const TradeForm: React.FC = () => {
 
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            disabled={isLoading}
+            className={`w-full p-2 rounded transition ${
+            isLoading
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
           >
-            Submit
+            {isLoading ? "submitting..." : "Submit Trade"}
           </button>
         </form>
       </div>

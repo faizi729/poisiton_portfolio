@@ -11,6 +11,7 @@ const navigate = useNavigate()
     email: "",
     password: "",
   });
+   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +19,7 @@ const navigate = useNavigate()
 
  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setIsLoading(true);
   try {
     const res = await axios.post(`${backend_url}/api/login`, form);
     localStorage.setItem("token", res.data.token);
@@ -31,6 +33,7 @@ const navigate = useNavigate()
       alert("❌ Login failed due to an unexpected error.");
     }
   }
+  setIsLoading(false);
 };
 
   return (
@@ -58,9 +61,14 @@ const navigate = useNavigate()
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded"
+          disabled={isLoading}
+          className={`w-full p-2 rounded transition ${
+            isLoading
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
         >
-          Login
+          {isLoading ? "Logging in..." : "Login"}
         </button>
         <p
           onClick={() => navigate("/register")}
