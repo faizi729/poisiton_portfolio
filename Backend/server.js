@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import sequelize from "./config/db.js";
 import "./models/User.model.js"; // Load models (ensure associations are defined inside model files)
- // example route file
+
 import morgan from "morgan";
 import cors from "cors";
 

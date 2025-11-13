@@ -2,7 +2,7 @@
 import { Op } from "sequelize";
 import logger from "../config/winston.js";
 import { LotTable } from "../models/Lot.model.js";
-import { TradeTable } from "../models/Trade.model.js";
+
 
 export const getPositionsController = async (req, res) => {
   try {

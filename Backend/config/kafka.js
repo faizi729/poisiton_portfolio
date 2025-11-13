@@ -2,7 +2,7 @@ import { Kafka } from "kafkajs";
 
 const kafka = new Kafka({
   clientId: "trade-service",
-  brokers: ["switchback.proxy.rlwy.net:53752"], 
+  brokers: [process.env.KAFKA_BROKER], 
 });
 
 export const tradeProducer = kafka.producer();
