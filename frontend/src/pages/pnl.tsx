@@ -35,6 +35,7 @@ interface ApiResponse {
 const PnLPage: React.FC = () => {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   // ✅ Load userId once
   useEffect(() => {
@@ -47,7 +48,7 @@ const PnLPage: React.FC = () => {
     if (!userId) return;
 
     axios
-      .get("http://localhost:5000/api/realized-pnl", { params: { userId } })
+      .get(`${backend_url}/api/realized-pnl`, { params: { userId } })
       .then((res) => setData(res.data))
       .catch((err) => console.error("❌ Error fetching PnL:", err));
   }, [userId]);
